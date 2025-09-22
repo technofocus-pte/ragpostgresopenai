@@ -151,10 +151,9 @@ var resourceToken = toLower(uniqueString(subscription().id, name, location))
 var prefix = '${toLower(name)}-${resourceToken}'
 var tags = { 'azd-env-name': name }
 
-resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
-  name: '${name}-rg'
-  location: location
-  tags: tags
+// ✅ Use existing ResourceGroup1 instead of creating a new one
+resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = {
+  name: 'ResourceGroup1'
 }
 
 var postgresServerName = '${prefix}-postgresql'
